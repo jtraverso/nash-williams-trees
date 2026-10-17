@@ -67,6 +67,20 @@ sources:
     note: "The exchange idea used for the arboricity theorem."
     license: "all rights reserved"
     author_endorsement: "not-contacted"
+  - title: "Graph Theory"
+    authors:
+      - "Reinhard Diestel"
+    id: "doi:10.1007/978-3-662-53622-3"
+    type: "book"
+    location: "Graduate Texts in Mathematics 173, 5th edition, Springer (2017), Section 2.4 (Theorem 2.4.1 and its proof)"
+    relationship: "background"
+    note: >-
+      The proof plan for the tree packing theorem follows the edge-exchange argument of Diestel's
+      proof of Theorem 2.4.1 (Nash-Williams 1961, Tutte 1961): a maximal family of edge-disjoint
+      forests, the edges freed by sequences of single-edge exchanges, and counting edges between
+      the resulting components.
+    license: "all rights reserved"
+    author_endorsement: "not-contacted"
 
 status:
   scope: >-

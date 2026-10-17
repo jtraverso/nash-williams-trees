@@ -59,6 +59,9 @@ The three results then follow by counting:
   39 (1964) 12, doi:10.1112/jlms/s1-39.1.12.
 * B. Chen, M. Matsumoto, J. Wang, Z. Zhang, J. Zhang, *A short proof of Nash-Williams' theorem for
   the arboricity of a graph*, Graphs Combin. 10 (1994) 27–28, doi:10.1007/BF01202467.
+* R. Diestel, *Graph Theory*, 5th ed., Graduate Texts in Mathematics 173, Springer (2017),
+  Section 2.4, doi:10.1007/978-3-662-53622-3 (the edge-exchange proof of Theorem 2.4.1 followed by
+  the proof plan).
 
 ## Authorship and use of AI
 
