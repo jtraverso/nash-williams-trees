@@ -1,0 +1,156 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "The Nash-Williams–Tutte tree packing theorem and Nash-Williams' arboricity theorem"
+  description: >-
+    A Lean 4 / Mathlib formalization of three classical results on edge-disjoint trees and forests
+    in finite simple graphs, none of which is in Mathlib. (1) The Nash-Williams–Tutte tree packing
+    theorem: a graph has k edge-disjoint spanning trees if and only if every partition of its
+    vertices into m parts has at least k(m − 1) edges between different parts. (2) Nash-Williams'
+    arboricity theorem: the edges can be covered by k forests if and only if every nonempty vertex
+    set S spans at most k(|S| − 1) edges. (3) The corollary that every 2k-edge-connected graph has
+    k edge-disjoint spanning trees. Mathlib has no matroid union theorem and no graphic matroid;
+    the proofs are direct edge-exchange arguments.
+  authors:
+    - "Juan Pablo Traverso Gianini"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Juan Pablo Traverso Gianini"
+
+classification:
+  arxiv: ["math.CO"]
+  msc2020: ["05C05", "05C70", "05C40"]
+
+sources:
+  - title: "Edge-Disjoint Spanning Trees of Finite Graphs"
+    authors:
+      - "C. St. J. A. Nash-Williams"
+    id: "doi:10.1112/jlms/s1-36.1.445"
+    type: "paper"
+    location: "Journal of the London Mathematical Society s1-36 (1961), 445–450"
+    relationship: "formalizes"
+    note: "The tree packing theorem."
+    license: "all rights reserved"
+    author_endorsement: "n/a"
+  - title: "On the Problem of Decomposing a Graph into n Connected Factors"
+    authors:
+      - "W. T. Tutte"
+    id: "doi:10.1112/jlms/s1-36.1.221"
+    type: "paper"
+    location: "Journal of the London Mathematical Society s1-36 (1961), 221–230"
+    relationship: "formalizes"
+    note: "The tree packing theorem, obtained independently."
+    license: "all rights reserved"
+    author_endorsement: "n/a"
+  - title: "Decomposition of Finite Graphs Into Forests"
+    authors:
+      - "C. St. J. A. Nash-Williams"
+    id: "doi:10.1112/jlms/s1-39.1.12"
+    type: "paper"
+    location: "Journal of the London Mathematical Society s1-39 (1964), 12"
+    relationship: "formalizes"
+    note: "The arboricity theorem."
+    license: "all rights reserved"
+    author_endorsement: "n/a"
+  - title: "A short proof of Nash-Williams' theorem for the arboricity of a graph"
+    authors:
+      - "B. Chen"
+      - "M. Matsumoto"
+      - "J. Wang"
+      - "Z. Zhang"
+      - "J. Zhang"
+    id: "doi:10.1007/BF01202467"
+    type: "paper"
+    location: "Graphs and Combinatorics 10 (1994), 27–28"
+    relationship: "background"
+    note: "The exchange idea used for the arboricity theorem."
+    license: "all rights reserved"
+    author_endorsement: "not-contacted"
+
+status:
+  scope: >-
+    Proved for every finite simple graph and every k (tree packing on a nonempty vertex type;
+    arboricity on any finite vertex type; the corollary for every 2k-edge-connected graph on a
+    nonempty finite vertex type).
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: []
+
+automation:
+  methods:
+    - method: "autonomous"
+      models: ["Aristotle (Harmonic)"]
+      framework: "Aristotle CLI"
+      tool_setup: >-
+        Produced all proofs in one run from the formal statements and a proof plan (Diestel's
+        exchange argument, Chen et al.'s short proof, and a cut-counting argument for the
+        corollary); the return was audited (statements and headers unchanged, no added axioms)
+        and rebuilt locally.
+      cost:
+        wall_time: "under one hour"
+        spend_usd: "not tracked"
+        hardware: "API-only"
+      prompting_notes: "Formal statements and proof plan supplied."
+    - method: "agent"
+      models: ["Claude Opus 5.5"]
+      framework: "Claude Code (Anthropic)"
+      tool_setup: >-
+        Statement design, proof plan, integration and review of the Aristotle return, and the
+        Palomar packaging, checked with `lake build` and `#print axioms` (Lean v4.35.0-rc3,
+        Mathlib c55e6e786f49471c72fbddbec5415808896aec1e).
+      cost:
+        wall_time: "about one hour"
+        spend_usd: "subscription-based"
+        hardware: "local machine"
+      prompting_notes: "Natural-language instructions in Spanish, directed by the author."
+  spend_usd: "subscription-based"
+  notes: >-
+    The results were chosen by the human author; the Lean proofs are AI-generated and
+    mechanically verified (no `sorry`, axioms limited to propext, Classical.choice and Quot.sound,
+    identical elaborated types for the Challenge/Solution pair).
+
+fidelity:
+  divergences: >-
+    Spanning trees are subgraphs T ≤ G on the same vertex type with Mathlib's `IsTree`, forests are
+    subgraphs with `IsAcyclic`, and edge-disjointness is `Disjoint` in the lattice of simple
+    graphs. A partition of the vertices is given by a map f : V → V (its parts are the nonempty
+    fibres, `#(univ.image f)` of them), and the edges between different parts are those of
+    `G ⊓ (⊤ : SimpleGraph V).comap f`; edge counts are `Set.ncard` of `edgeSet`. The arboricity
+    theorem is stated as covering, G = ⨆ i, F i (equivalent to partitioning the edges into k
+    forests), with the condition on the induced subgraphs `G.induce S` for nonempty finite S.
+    Edge connectivity is Mathlib's `IsEdgeConnected`. The tree packing theorem and the corollary
+    assume a nonempty vertex type (otherwise there are no trees).
+
+review:
+  status: "agent-reviewed"
+  reviewers:
+    - "Claude Opus 5.5 (AI agent in Claude Code, acting for the author)"
+  notes: >-
+    Agent review by Claude Opus 5.5, distinct from the mechanical verification: the agent
+    compared the statements with the theorems of Nash-Williams and Tutte, checked edge cases
+    (empty vertex type, k = 0, singleton sets), checked that the Aristotle return left every
+    statement and header unchanged, and confirmed by `lake build`, `#print axioms` and a
+    comparison of the fully elaborated Challenge and Solution types that the proofs use no `sorry`
+    and only propext, Classical.choice and Quot.sound. The author directed the work and approved
+    the statements. No independent human mathematical review has been performed. The results are
+    classical; no mathematical novelty is claimed.
+
+alignment:
+  namespace: "NashWilliamsTutte"
+  statements:
+    - source: "Nash-Williams (1961), Tutte (1961): tree packing theorem"
+      lean: "NashWilliamsTutte.tree_packing"
+      module: "Challenge"
+      status: "proved"
+    - source: "Nash-Williams (1964): arboricity theorem"
+      lean: "NashWilliamsTutte.arboricity"
+      module: "Challenge"
+      status: "proved"
+    - source: "Corollary: 2k-edge-connected graphs have k edge-disjoint spanning trees"
+      lean: "NashWilliamsTutte.exists_trees_of_isEdgeConnected"
+      module: "Challenge"
+      status: "proved"
+
+acknowledgements: >-
+  Mathlib and the Lean community; Harmonic's Aristotle.

@@ -1,0 +1,16 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "NashWilliamsTutte.tree_packing",
+    "NashWilliamsTutte.arboricity",
+    "NashWilliamsTutte.exists_trees_of_isEdgeConnected"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "enable_nanoda": true
+}
